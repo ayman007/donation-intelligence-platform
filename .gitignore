@@ -1,0 +1,24 @@
+﻿# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+# Keep .terraform.lock.hcl committed
+
+# Secrets
+.env
+*.pem
+.aws/
+
+# Python
+__pycache__/
+.venv/
+*.pyc
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
