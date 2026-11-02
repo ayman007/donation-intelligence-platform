@@ -5,10 +5,15 @@ output "account_id" {
 
 output "landing_bucket_name" {
   description = "Name of the landing bucket."
-  value       = aws_s3_bucket.landing.id
+  value       = module.landing_bucket.id
 }
 
 output "landing_bucket_arn" {
   description = "ARN of the landing bucket."
-  value       = aws_s3_bucket.landing.arn
+  value       = module.landing_bucket.arn
+}
+
+output "raw_archive_bucket_name" {
+  description = "Name of the raw archive bucket."
+  value       = module.raw_archive_bucket.id
 }
