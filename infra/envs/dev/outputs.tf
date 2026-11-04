@@ -17,3 +17,8 @@ output "raw_archive_bucket_name" {
   description = "Name of the raw archive bucket."
   value       = module.raw_archive_bucket.id
 }
+
+output "pipeline_role_arn" {
+  description = "ARN of the pipeline role."
+  value       = aws_iam_role.pipeline.arn
+}
