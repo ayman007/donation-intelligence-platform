@@ -8,7 +8,8 @@ locals {
 module "landing_bucket" {
   source = "../../modules/s3-bucket"
 
-  name = "${local.name_prefix}-landing-${local.account_id}"
+  name          = "${local.name_prefix}-landing-${local.account_id}"
+  force_destroy = true
 }
 
 moved {
@@ -41,4 +42,5 @@ module "raw_archive_bucket" {
 
   name                               = "${local.name_prefix}-raw-archive-${local.account_id}"
   noncurrent_version_expiration_days = 90
+  force_destroy                      = true
 }
