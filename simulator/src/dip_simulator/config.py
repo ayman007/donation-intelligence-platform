@@ -1,4 +1,5 @@
 ﻿from dataclasses import dataclass
+from datetime import date
 
 
 @dataclass(frozen=True)
@@ -6,6 +7,7 @@ class SimConfig:
     """Simulation parameters. Values mirror docs/data-contracts.md."""
 
     seed: int = 42
+    as_of: date = date(2026, 11, 1)
 
     # Population
     n_campaigns: int = 50
