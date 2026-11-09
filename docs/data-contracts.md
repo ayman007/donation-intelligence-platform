@@ -100,3 +100,7 @@ These numbers drive the simulator. They only need to be realistic and written do
 - **Why `user_id` is the Kafka partition key:** Kafka only guarantees ordering within a partition. Keying by `user_id` sends all of one user's events to the same partition, so a consumer sees each user's `app_open`, views and donation in order, while load still spreads across partitions because there are many users.
 - **Why money is stored as integer minor units:** floating-point numbers can't represent most decimal values exactly (0.1 + 0.2 is not 0.3), so rounding errors creep into sums. Integers in cents add up exactly, and the `currency` field says what the integer means.
 - **Why every event carries a unique `event_id`:** Kafka delivery is at-least-once in many setups, so duplicates can happen. A unique ID lets downstream models deduplicate events and makes reprocessing safe (idempotent).
+
+## Avro schema
+
+Events are formally defined in `kafka/schemas/app_event.avsc` (see ADR 0004).

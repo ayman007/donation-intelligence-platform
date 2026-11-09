@@ -1,0 +1,22 @@
+﻿{
+  "type": "record",
+  "name": "AppEvent",
+  "namespace": "com.dip.events",
+  "doc": "A single event from the donation app. Type-specific fields are optional.",
+  "fields": [
+    {"name": "event_id", "type": "string", "doc": "Unique per event, used for deduplication"},
+    {"name": "event_type", "type": "string", "doc": "app_open, campaign_view, donation_started, donation_completed"},
+    {"name": "event_ts", "type": {"type": "long", "logicalType": "timestamp-millis"}, "doc": "UTC time on the device"},
+    {"name": "user_id", "type": "string", "doc": "Kafka partition key"},
+    {"name": "session_id", "type": "string"},
+    {"name": "platform", "type": "string", "doc": "android or ios"},
+    {"name": "app_version", "type": "string"},
+    {"name": "device_country", "type": ["null", "string"], "default": null},
+    {"name": "campaign_id", "type": ["null", "string"], "default": null},
+    {"name": "position_in_feed", "type": ["null", "int"], "default": null},
+    {"name": "source", "type": ["null", "string"], "default": null},
+    {"name": "amount_minor", "type": ["null", "long"], "default": null, "doc": "Money in minor units"},
+    {"name": "currency", "type": ["null", "string"], "default": null},
+    {"name": "payment_id", "type": ["null", "string"], "default": null}
+  ]
+}

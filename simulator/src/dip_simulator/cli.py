@@ -1,8 +1,10 @@
 ﻿import argparse
+import json
 import random
 from collections import Counter
 from pathlib import Path
 
+from dip_simulator.avro_io import load_schema, validate_events, write_avro
 from dip_simulator.config import SimConfig
 from dip_simulator.generators import generate_campaigns, generate_donors
 from dip_simulator.ids import IdFactory
@@ -22,6 +24,10 @@ def main(argv=None) -> None:
     events.add_argument("--seed", type=int, default=42)
     events.add_argument("--days", type=int, default=7)
     events.add_argument("--out", default="output")
+
+    validate = sub.add_parser("validate", help="Validate events.jsonl and write events.avro")
+    validate.add_argument("--events", default="output/events.jsonl")
+    validate.add_argument("--out", default="output")
 
     args = parser.parse_args(argv)
     out = Path(args.out)
@@ -47,6 +53,18 @@ def main(argv=None) -> None:
         print(f"Wrote {len(result.events)} events, {len(result.payments)} payments to {out}")
         for event_type, n in sorted(counts.items()):
             print(f"  {event_type}: {n}")
+
+    elif args.command == "validate":
+        source = Path(args.events)
+        with source.open(encoding="utf-8") as handle:
+            rows = [json.loads(line) for line in handle]
+        schema = load_schema()
+        n = validate_events(rows, schema)
+        avro_path = out / "events.avro"
+        write_avro(avro_path, schema, rows)
+        print(f"{n} events are valid against app_event.avsc")
+        print(f"events.jsonl: {source.stat().st_size:,} bytes")
+        print(f"events.avro:  {avro_path.stat().st_size:,} bytes")
 
 
 if __name__ == "__main__":
