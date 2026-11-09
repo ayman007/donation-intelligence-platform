@@ -81,3 +81,12 @@ DONOR_CITIES = {
 SIGNUP_CHANNELS = {"organic": 0.60, "referral": 0.25, "ad": 0.15}
 
 CURRENCIES = {"AED": 0.80, "USD": 0.20}
+
+AMOUNT_PARAMS = {"AED": (50, 10, 1000), "USD": (14, 3, 300)}  # median, min, max (major units)
+
+VIEW_SOURCES = {"home_recommendation": 0.50, "search": 0.30, "push": 0.20}
+
+APP_VERSIONS = ["3.1.0", "3.2.0", "3.3.0"]
+
+# Relative traffic by hour of day (UTC), with an evening peak
+HOUR_WEIGHTS = [1, 1, 1, 1, 1, 2, 3, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 8, 10, 12, 12, 10, 4]

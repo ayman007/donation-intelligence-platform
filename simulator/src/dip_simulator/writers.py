@@ -1,4 +1,5 @@
 ﻿import csv
+import json
 from dataclasses import asdict, fields
 from datetime import date, datetime
 from pathlib import Path
@@ -23,3 +24,10 @@ def write_csv(path, rows) -> None:
         writer.writeheader()
         for row in rows:
             writer.writerow({k: _format(v) for k, v in asdict(row).items()})
+
+def write_jsonl(path, rows) -> None:
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as handle:
+        for row in rows:
+            handle.write(json.dumps(row, ensure_ascii=False) + "\n")

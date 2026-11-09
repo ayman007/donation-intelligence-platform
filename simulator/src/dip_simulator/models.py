@@ -23,3 +23,14 @@ class Donor:
     country: str
     city: str
     signup_channel: str
+
+
+@dataclass(frozen=True)
+class Payment:
+    payment_id: str
+    donor_id: str
+    campaign_id: str
+    amount_minor: int
+    currency: str
+    status: str
+    created_at: datetime
