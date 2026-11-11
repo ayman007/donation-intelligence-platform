@@ -104,3 +104,14 @@ These numbers drive the simulator. They only need to be realistic and written do
 ## Avro schema
 
 Events are formally defined in `kafka/schemas/app_event.avsc` (see ADR 0004).
+
+## Known data quality issues (simulated)
+
+The simulator can inject faults into the stream so the pipeline has real problems to handle.
+Each fault is listed in a manifest, which acts as an answer key for tests.
+
+| Fault | Rate | What it looks like | Defense |
+|---|---|---|---|
+| Duplicates | 1% | Same `event_id` arrives twice | Deduplicate on `event_id` |
+| Late events | 2% | Arrive 5 to 360 minutes after `event_ts` | Incremental lookback window |
+| Malformed | 0.5% | Missing user, string or negative amount, unknown type, bad timestamp, empty id | Dead Letter Queue with reason codes |
